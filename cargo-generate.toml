@@ -6,11 +6,9 @@ ignore = [".git", "assets", "README.md"]
 post = ["post-script.rhai"]
 
 [placeholders.authors]
-authors = {
-    prompt = "Enter authors (e.g., 'John Doe <john@seallabs.xyz>, Jane Doe <jane@seallabs.xyz>'):",
-    default = "Your Name <your.email@seallabs.xyz>",
-    type = "string"
-}
+prompt = "Enter authors (e.g., 'John Doe <john@seallabs.xyz>, Jane Doe <jane@seallabs.xyz>'):"
+default = "Your Name <your.email@seallabs.xyz>"
+type = "string"
 
 [placeholders.tokio_features]
 type = "string"

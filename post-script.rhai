@@ -1,26 +1,36 @@
 
-use std::fs::File;
-use std::io::Write;
-
-// Load the Cargo.toml file
+// Read the Cargo.toml file
 let cargo_toml_path = "Cargo.toml";
-let cargo_toml_content = std::fs::read_to_string(cargo_toml_path).unwrap();
+let cargo_toml_content = read_file(cargo_toml_path);
 
-// Read the user input from placeholders
-let authors = env::var("CARGO_GENERATE_AUTHORS").unwrap();
-let tokio_features = env::var("CARGO_GENERATE_TOKIO_FEATURES").unwrap();
+// Get the user input from placeholders
+let authors = variable::get("authors");
+let tokio_features = variable::get("tokio_features");
 
-// Split the authors into an array
-let authors_array = authors.split(',').map(|a| format!("\"{}\"", a.trim())).collect::<Vec<_>>().join(",\n    ");
+// Format the authors array
+let authors_array = "";
+let author_list = authors.split(",");
+for (i, author) in author_list.enumerate() {
+    authors_array += "    \"" + author.trim() + "\"";
+    if i < author_list.len() - 1 {
+        authors_array += ",\n";
+    }
+}
 
-// Split the features into an array
-let features_array = tokio_features.split(',').map(|f| format!("\"{}\"", f.trim())).collect::<Vec<_>>().join(", ");
+// Format the tokio features
+let features_array = "";
+let feature_list = tokio_features.split(",");
+for (i, feature) in feature_list.enumerate() {
+    features_array += "\"" + feature.trim() + "\"";
+    if i < feature_list.len() - 1 {
+        features_array += ", ";
+    }
+}
 
-// Replace the authors and Tokio features in Cargo.toml with the formatted arrays
+// Replace the placeholders in Cargo.toml
 let modified_content = cargo_toml_content
-    .replace(&format!("authors = [\n    {{authors}}\n]", authors), &format!("authors = [\n    {}\n]", authors_array))
-    .replace(&format!("features = [\"{}\"]", tokio_features), &format!("features = [{}]", features_array));
+    .replace("{{authors}}", authors_array)
+    .replace("\"{{tokio_features}}\"", features_array);
 
-// Write the modified Cargo.toml
-let mut file = File::create(cargo_toml_path).unwrap();
-file.write_all(modified_content.as_bytes()).unwrap();
+// Write the modified content back to Cargo.toml
+write_file(cargo_toml_path, modified_content);
