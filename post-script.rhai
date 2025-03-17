@@ -24,19 +24,9 @@ for i in range(0, feature_list.len()) {
     }
 }
 
-// Read the Cargo.toml file
+// Read the Cargo.toml file using system command
 let cargo_toml_path = "Cargo.toml";
-let cargo_toml_content = "";
-
-// Read the file line by line since there's no direct read_file function
-let files = file::listdir(".");
-if files.contains(cargo_toml_path) {
-    // We need to read the file content using system command
-    // This will prompt the user for permission
-    cargo_toml_content = system::command("cat", [cargo_toml_path]);
-} else {
-    abort(`${cargo_toml_path} not found in template directory`);
-}
+let cargo_toml_content = system::command("cat", [cargo_toml_path]);
 
 // Replace the placeholders in Cargo.toml
 let updated_cargo_toml = cargo_toml_content
