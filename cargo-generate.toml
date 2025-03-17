@@ -10,8 +10,8 @@ tokio_features = { type = "string", prompt = "Enter Tokio features you wish to u
 
 [placeholders.project_authors]
 prompt = "Enter authors (e.g., 'John Doe <john@seallabs.xyz>, Jane Doe <jane@seallabs.xyz>'):"
-default = "Your Name <your.email@seallabs.xyz>"
-type = "string"
+default = "[Your Name \"<your.email@seallabs.xyz>\"]"
+type = "array"
 
 [conditional.'tokio_features'.placeholders.multi_choice]
 type = "array"
