@@ -2,9 +2,18 @@
 cargo_generate_version = ">=0.17.4"
 ignore = [".git", "assets", "README.md"]
 
+[hooks]
+post = ["post-script.rhai"]
+
+[placeholders.authors]
+authors = {
+    prompt = "Enter authors (e.g., 'John Doe <john@seallabs.xyz>, Jane Doe <jane@seallabs.xyz>'):",
+    default = "Your Name <your.email@seallabs.xyz>",
+    type = "string"
+}
 
 [placeholders.tokio_features]
 type = "string"
-prompt = "Enter Tokio features you wish to use:"
+prompt = "Enter Tokio features you wish to use (comma-separated, e.g., full, rt-multi-thread, io-util):"
 choice = ["full", "rt", "rt-multi-thread", "io-util", "io-std", "net", "time", "process", "macros", "sync", "signal", "fs", "test-util", "parking_lot"]
 default = "full"
