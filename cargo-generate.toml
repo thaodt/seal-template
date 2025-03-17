@@ -5,7 +5,7 @@ ignore = [".git", "assets", "README.md"]
 [hooks]
 post = ["post-script.rhai"]
 
-[placeholders.authors]
+[placeholders.project_authors]
 prompt = "Enter authors (e.g., 'John Doe <john@seallabs.xyz>, Jane Doe <jane@seallabs.xyz>'):"
 default = "Your Name <your.email@seallabs.xyz>"
 type = "string"
