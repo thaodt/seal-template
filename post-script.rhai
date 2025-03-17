@@ -1,10 +1,3 @@
-// Import the standard library modules
-import "std/fs" as fs;
-
-// Read the Cargo.toml file
-let cargo_toml_path = "Cargo.toml";
-let cargo_toml_content = fs::read_to_string(cargo_toml_path);
-
 // Get the user input from placeholders
 let project_authors = variable::get("project_authors");
 let tokio_features = variable::get("tokio_features");
@@ -31,10 +24,10 @@ for i in range(0, feature_list.len()) {
     }
 }
 
-// Replace the placeholders in Cargo.toml
-let modified_content = cargo_toml_content
+// Update the Cargo.toml file directly
+let cargo_toml = file::read_to_string("Cargo.toml");
+let updated_cargo_toml = cargo_toml
     .replace("{{project_authors}}", authors_array)
     .replace("\"{{tokio_features}}\"", features_array);
+file::write("Cargo.toml", updated_cargo_toml);
 
-// Write the modified content back to Cargo.toml
-fs::write_to_file(cargo_toml_path, modified_content);

@@ -5,13 +5,16 @@ ignore = [".git", "assets", "README.md"]
 [hooks]
 post = ["post-script.rhai"]
 
+[placeholders]
+tokio_features = { type = "bool", prompt = "Enter Tokio features you wish to use ( e.g., full, rt-multi-thread, io-util):", default = true }
+
 [placeholders.project_authors]
 prompt = "Enter authors (e.g., 'John Doe <john@seallabs.xyz>, Jane Doe <jane@seallabs.xyz>'):"
 default = "Your Name <your.email@seallabs.xyz>"
 type = "string"
 
-[placeholders.tokio_features]
-type = "string"
-prompt = "Enter Tokio features you wish to use (comma-separated, e.g., full, rt-multi-thread, io-util):"
+[conditional.'tokio_features'.placeholders.multi_choice]
+type = "array"
+prompt = "Please select one or more, default feature is full:"
 choice = ["full", "rt", "rt-multi-thread", "io-util", "io-std", "net", "time", "process", "macros", "sync", "signal", "fs", "test-util", "parking_lot"]
-default = "full"
+default = ["full"]
