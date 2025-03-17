@@ -1,0 +1,10 @@
+[template]
+cargo_generate_version = ">=0.17.4"
+ignore = [".git", "assets", "README.md"]
+
+
+[placeholders.tokio_features]
+type = "string"
+prompt = "Enter Tokio features you wish to use:"
+choice = ["full", "rt", "rt-multi-thread", "io-util", "io-std", "net", "time", "process", "macros", "sync", "signal", "fs", "test-util", "parking_lot"]
+default = "full"

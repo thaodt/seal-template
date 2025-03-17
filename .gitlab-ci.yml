@@ -1,0 +1,21 @@
+include:
+  - component: $CI_SERVER_FQDN/util/rust-ci/full@1.3.0
+    inputs:
+      stages:
+        - lint
+        - test
+        - docs
+        - production
+      before:
+        - apt update
+        - apt install -y libssl-dev pkg-config
+      fmt-interruptible: true
+      clippy-interruptible: true
+      clippy-beta-interruptible: true
+      test-interruptible: true
+      doc-interruptible: true
+      production-interruptible: true
+      clippy-allow-failure: true
+      clippy-beta-allow-failure: true
+      rust-image: rust:1.85.0-slim-bullseye
+      production-condition: $CI_COMMIT_BRANCH == "main"
